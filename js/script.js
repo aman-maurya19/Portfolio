@@ -10,6 +10,35 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  // Mobile Hamburger Menu
+  const hamburger = document.getElementById('hamburger-btn');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileBackdrop = document.getElementById('mobile-backdrop');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-nav-footer .btn');
+
+  function toggleMobileMenu() {
+    if (!hamburger) return;
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('open');
+    mobileBackdrop.classList.toggle('open');
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener('click', toggleMobileMenu);
+  }
+
+  if (mobileBackdrop) {
+    mobileBackdrop.addEventListener('click', toggleMobileMenu);
+  }
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (hamburger && hamburger.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+  });
+
   // 2. Typing Animation in Hero Section
   const typingText = document.getElementById('typing-text');
   const roles = [
