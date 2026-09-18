@@ -317,13 +317,31 @@ document.addEventListener('DOMContentLoaded', () => {
         <span>Sending Message...</span>
       `;
 
-      // Simulate asynchronous API request
-      setTimeout(() => {
+      // Perform asynchronous API request via Web3Forms
+      const formData = new FormData(contactForm);
+      
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+          showToast('Thank you! Your message has been sent successfully.', 'success');
+          contactForm.reset();
+        } else {
+          console.log(response);
+          showToast(json.message || 'Something went wrong!', 'error');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        showToast('Something went wrong! Please try again.', 'error');
+      })
+      .finally(() => {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnHtml;
-        contactForm.reset();
-        showToast('Thank you! Your message has been sent successfully.', 'success');
-      }, 1200);
+      });
     });
   }
 
