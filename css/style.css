@@ -70,6 +70,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
   font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -740,6 +742,10 @@ button, input, textarea {
   grid-template-columns: 1fr 1fr;
   gap: 3.5rem;
   align-items: center;
+}
+
+.about-text {
+  padding: 2.5rem;
 }
 
 .about-text h3 {
@@ -1426,8 +1432,18 @@ button, input, textarea {
   }
 
   .hero-title {
-    font-size: 2.75rem;
-    min-height: 2.4em;
+    font-size: 2rem;
+    min-height: auto;
+    word-wrap: break-word;
+    line-height: 1.3;
+  }
+
+  .about-text {
+    padding: 1.5rem;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr;
   }
 
   .section {
