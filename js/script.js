@@ -10,35 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // Mobile Hamburger Menu
-  const hamburger = document.getElementById('hamburger-btn');
-  const mobileNav = document.getElementById('mobile-nav');
-  const mobileBackdrop = document.getElementById('mobile-backdrop');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-nav-footer .btn');
-
-  function toggleMobileMenu() {
-    if (!hamburger) return;
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('open');
-    mobileBackdrop.classList.toggle('open');
-  }
-
-  if (hamburger) {
-    hamburger.addEventListener('click', toggleMobileMenu);
-  }
-
-  if (mobileBackdrop) {
-    mobileBackdrop.addEventListener('click', toggleMobileMenu);
-  }
-
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (hamburger && hamburger.classList.contains('active')) {
-        toggleMobileMenu();
-      }
-    });
-  });
-
   // 2. Typing Animation in Hero Section
   const typingText = document.getElementById('typing-text');
   const roles = [
@@ -191,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     },
-    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
   );
 
   revealElements.forEach((el) => revealObserver.observe(el));
@@ -228,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
           runCounters();
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.05 });
     aboutObserver.observe(aboutSection);
   }
 
@@ -248,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.05 });
     skillsObserver.observe(skillsSection);
   }
 
@@ -348,16 +319,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Perform asynchronous API request via Web3Forms
       const formData = new FormData(contactForm);
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
       
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: json
+        body: formData
       })
       .then(async (response) => {
         let json = await response.json();
